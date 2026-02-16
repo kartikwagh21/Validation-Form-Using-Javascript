@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:rgb(56, 31, 34);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .card { 
+            background: rgb(208, 166, 166);
+            width: 350px; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        h2 { text-align: center; color: #000000; margin-bottom: 25px; }
+
+        .input-group { margin-bottom: 15px; }
+
+        label { display: block; margin-bottom: 5px; color: #000000; font-weight: 600; font-size: 14px; }
+
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid #5f4f4f; 
+            border-radius: 8px; 
+            box-sizing: border-box;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        input:focus { border-color: #9face6; }
+
+        .error-msg { 
+            color: #721717; 
+            font-size: 13px; 
+            margin-top: 6px; 
+            height: 15px; 
+        }
+
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background: #7b000060; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer; 
+            transition: transform 0.2s, background 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover { background: rgb(56, 31, 34); transform: translateY(-2px); }
+        button:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Create Account!</h2>
+
+        <div class="input-group">
+            <label>Name : </label>
+            <input type="text" id="nameBox" placeholder="Enter your full name">
+            <div id="nameError" class="error-msg"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Email Address : </label>
+            <input type="email" id="emailBox" placeholder="example@gmail.com">
+            <div id="emailError" class="error-msg"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Password : </label>
+            <input type="password" id="passBox" placeholder="Min. 6 characters">
+            <div id="passError" class="error-msg"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Mobile Number : </label>
+            <input type="text" id="phoneBox" placeholder="10-digit number">
+            <div id="phoneError" class="error-msg"></div>
+        </div>
+
+        <button onclick="validate()">Register Now</button>
+    </div>
+
+    <script>
+        function validate() {
+            const name = document.getElementById("nameBox").value.trim();
+            const email = document.getElementById("emailBox").value.trim();
+            const pass = document.getElementById("passBox").value;
+            const phone = document.getElementById("phoneBox").value.trim();
+
+            const errors = document.querySelectorAll(".error-msg");
+            errors.forEach(err => err.innerHTML = "");
+
+            let isValid = true;
+
+            if (name === "") {
+                document.getElementById("nameError").innerHTML = "Name is required";
+                isValid = false;
+            }
+
+            if (!email.includes("@") || !email.includes(".")) {
+                document.getElementById("emailError").innerHTML = "Enter a valid email address";
+                isValid = false;
+            }
+
+            if (pass.length < 6) {
+                document.getElementById("passError").innerHTML = "Password must be at least 6 characters";
+                isValid = false;
+            }
+
+            if (phone.length !== 10) {
+                document.getElementById("phoneError").innerHTML = "Enter a valid 10-digit number";
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert("🎉 Registration Successful!");
+            }
+        }
+    </script>
+</body>
+</html>
